@@ -17,7 +17,7 @@ depends: [
   "dream-httpaf"
   "dune"
   "lwt"
-  "gluten-lwt" {>= "0.2.0"}
+  "dream-gluten-lwt" {>= "0.2.0"}
 ]
 pin-depends: [
   [ "dream-httpaf.dev" "git+https://github.com/clecat/httpaf.git#fork" ]
