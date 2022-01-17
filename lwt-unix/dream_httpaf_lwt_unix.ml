@@ -36,10 +36,10 @@
 open Lwt.Infix
 
 module Server = struct
-  include Dream_httpaf_lwt.Server (Gluten_lwt_unix.Server)
+  include Dream_httpaf_lwt.Server (Dream_gluten_lwt_unix.Server)
 
   module TLS = struct
-    include Dream_httpaf_lwt.Server (Gluten_lwt_unix.Server.TLS)
+    include Dream_httpaf_lwt.Server (Dream_gluten_lwt_unix.Server.TLS)
 
     let create_connection_handler_with_default
       ~certfile
@@ -48,7 +48,7 @@ module Server = struct
       ~request_handler
       ~error_handler =
       let make_tls_server =
-        Gluten_lwt_unix.Server.TLS.create_default ~certfile ~keyfile
+        Dream_gluten_lwt_unix.Server.TLS.create_default ~certfile ~keyfile
       in
       fun client_addr socket ->
         make_tls_server client_addr ~alpn_protocols:["http/1.1"] socket
@@ -62,7 +62,7 @@ module Server = struct
   end
 
   module SSL = struct
-    include Dream_httpaf_lwt.Server (Gluten_lwt_unix.Server.SSL)
+    include Dream_httpaf_lwt.Server (Dream_gluten_lwt_unix.Server.SSL)
 
     let create_connection_handler_with_default
       ~certfile
@@ -71,7 +71,7 @@ module Server = struct
       ~request_handler
       ~error_handler =
       let make_ssl_server =
-        Gluten_lwt_unix.Server.SSL.create_default ~certfile ~keyfile
+        Dream_gluten_lwt_unix.Server.SSL.create_default ~certfile ~keyfile
       in
       fun client_addr socket ->
         make_ssl_server ~alpn_protocols:["http/1.1"] client_addr socket
@@ -86,13 +86,13 @@ module Server = struct
 end
 
 module Client = struct
-  include Dream_httpaf_lwt.Client (Gluten_lwt_unix.Client)
+  include Dream_httpaf_lwt.Client (Dream_gluten_lwt_unix.Client)
 
   module TLS = struct
-    include Dream_httpaf_lwt.Client (Gluten_lwt_unix.Client.TLS)
+    include Dream_httpaf_lwt.Client (Dream_gluten_lwt_unix.Client.TLS)
 
     let create_connection_with_default ?config socket =
-      Gluten_lwt_unix.Client.TLS.create_default
+      Dream_gluten_lwt_unix.Client.TLS.create_default
         ~alpn_protocols:["http/1.1"]
         socket
       >>= fun tls_client ->
@@ -100,10 +100,10 @@ module Client = struct
   end
 
   module SSL = struct
-    include Dream_httpaf_lwt.Client (Gluten_lwt_unix.Client.SSL)
+    include Dream_httpaf_lwt.Client (Dream_gluten_lwt_unix.Client.SSL)
 
     let create_connection_with_default ?config socket =
-      Gluten_lwt_unix.Client.SSL.create_default
+      Dream_gluten_lwt_unix.Client.SSL.create_default
         ~alpn_protocols:["http/1.1"]
         socket
       >>= fun ssl_client ->

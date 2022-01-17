@@ -43,14 +43,14 @@ module Server : sig
 
   module SSL : sig
     include Httpaf_async_intf.Server
-      with type socket := Gluten_async.Server.SSL.socket
+      with type socket := Dream_gluten_async.Server.SSL.socket
       and type addr := Socket.Address.Inet.t
 
     val create_connection_handler_with_default
       :  certfile       : string
       -> keyfile        : string
       -> ?config         : Config.t
-      -> request_handler : ('a -> Dream_httpaf.Reqd.t Gluten.Server.request_handler)
+      -> request_handler : ('a -> Dream_httpaf.Reqd.t Dream_gluten.Server.request_handler)
       -> error_handler   : ('a -> Server_connection.error_handler)
       -> (Socket.Address.Inet.t as 'a)
       -> ([`Active], 'a) Socket.t
@@ -64,7 +64,7 @@ module Client : sig
 
   module SSL : sig
     include Httpaf_async_intf.Client
-      with type socket = Gluten_async.Client.SSL.socket
+      with type socket = Dream_gluten_async.Client.SSL.socket
 
     val create_connection_with_default
       :  ?config : Config.t

@@ -45,7 +45,7 @@ module Server = struct
           ~config
           ~error_handler:(error_handler client_addr)
       in
-      Gluten_async.Server.create_upgradable_connection_handler
+      Dream_gluten_async.Server.create_upgradable_connection_handler
         ~read_buffer_size:config.read_buffer_size
         ~protocol:(module Dream_httpaf.Server_connection)
         ~create_protocol:create_connection
@@ -64,7 +64,7 @@ module Server = struct
             ~config
             ~error_handler:(error_handler client_addr)
         in
-        Gluten_async.Server.SSL.create_upgradable_connection_handler
+        Dream_gluten_async.Server.SSL.create_upgradable_connection_handler
           ~read_buffer_size:config.read_buffer_size
           ~protocol:(module Dream_httpaf.Server_connection)
           ~create_protocol:create_connection
@@ -79,7 +79,7 @@ module Server = struct
       ~request_handler
       ~error_handler =
       let make_ssl_server =
-        Gluten_async.Server.SSL.create_default
+        Dream_gluten_async.Server.SSL.create_default
           ~alpn_protocols:["http/1.1"]
           ~certfile
           ~keyfile
@@ -97,7 +97,7 @@ module Server = struct
 end
 
 module Client = struct
-  module Client_runtime = Gluten_async.Client
+  module Client_runtime = Dream_gluten_async.Client
 
   type socket = Client_runtime.socket
 
@@ -127,7 +127,7 @@ module Client = struct
   let upgrade t protocol = Client_runtime.upgrade t.runtime protocol
 
   module SSL = struct
-    module Client_runtime = Gluten_async.Client.SSL
+    module Client_runtime = Dream_gluten_async.Client.SSL
     type socket = Client_runtime.socket
 
     type runtime = Client_runtime.t

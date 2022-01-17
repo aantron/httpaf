@@ -39,7 +39,7 @@ module type Server = sig
 
   val create_connection_handler
     :  ?config         : Config.t
-    -> request_handler : (addr -> Dream_httpaf.Reqd.t Gluten.reqd -> unit)
+    -> request_handler : (addr -> Dream_httpaf.Reqd.t Dream_gluten.reqd -> unit)
     -> error_handler   : (addr -> Server_connection.error_handler)
     -> addr
     -> socket
@@ -72,5 +72,5 @@ module type Client = sig
 
   val is_closed : t -> bool
 
-  val upgrade : t -> Gluten.impl -> unit
+  val upgrade : t -> Dream_gluten.impl -> unit
 end

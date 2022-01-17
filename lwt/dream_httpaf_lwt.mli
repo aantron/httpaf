@@ -40,11 +40,11 @@ module type Client = Httpaf_lwt_intf.Client
 (* The function that results from [create_connection_handler] should be passed
    to [Lwt_io.establish_server_with_client_socket]. For an example, see
    [examples/lwt_echo_server.ml]. *)
-module Server (Server_runtime: Gluten_lwt.Server) :
+module Server (Server_runtime: Dream_gluten_lwt.Server) :
   Server with type socket = Server_runtime.socket
           and type addr := Server_runtime.addr
 
 (* For an example, see [examples/lwt_get.ml]. *)
-module Client (Client_runtime: Gluten_lwt.Client) :
+module Client (Client_runtime: Dream_gluten_lwt.Client) :
   Client with type socket = Client_runtime.socket
           and type runtime = Client_runtime.t

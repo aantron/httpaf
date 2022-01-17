@@ -35,7 +35,7 @@
 module Server (Flow : Mirage_flow.S) = struct
   type socket = Flow.flow
 
-  module Server_runtime = Dream_httpaf_lwt.Server (Gluten_mirage.Server (Flow))
+  module Server_runtime = Dream_httpaf_lwt.Server (Dream_gluten_mirage.Server (Flow))
 
   let create_connection_handler ?config ~request_handler ~error_handler =
     fun flow ->
@@ -51,7 +51,7 @@ module type Server = sig
 
   val create_connection_handler
     :  ?config : Dream_httpaf.Config.t
-    -> request_handler : (Dream_httpaf.Reqd.t Gluten.reqd -> unit)
+    -> request_handler : (Dream_httpaf.Reqd.t Dream_gluten.reqd -> unit)
     -> error_handler : Dream_httpaf.Server_connection.error_handler
     -> (socket -> unit Lwt.t)
 end
@@ -59,4 +59,4 @@ end
 module type Client = Dream_httpaf_lwt.Client
 
 module Client (Flow : Mirage_flow.S) =
-  Dream_httpaf_lwt.Client (Gluten_mirage.Client (Flow))
+  Dream_httpaf_lwt.Client (Dream_gluten_mirage.Client (Flow))
