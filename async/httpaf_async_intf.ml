@@ -31,7 +31,7 @@
  *---------------------------------------------------------------------------*)
 
 open Async
-open Httpaf
+open Dream_httpaf
 
 module type Server = sig
   type socket
@@ -40,7 +40,7 @@ module type Server = sig
 
   val create_connection_handler
     :  ?config         : Config.t
-    -> request_handler : (addr -> Httpaf.Reqd.t Gluten.Server.request_handler)
+    -> request_handler : (addr -> Dream_httpaf.Reqd.t Gluten.Server.request_handler)
     -> error_handler   : (addr -> Server_connection.error_handler)
     -> addr
     -> socket
@@ -53,7 +53,7 @@ module type Client = sig
   type runtime
 
   type t =
-    { connection: Httpaf.Client_connection.t
+    { connection: Dream_httpaf.Client_connection.t
     ; runtime: runtime
     }
 

@@ -1,7 +1,7 @@
 open Core
 open Async
 
-open Httpaf
+open Dream_httpaf
 open Httpaf_async
 
 let response_handler finished response response_body =

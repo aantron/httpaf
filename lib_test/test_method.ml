@@ -1,4 +1,4 @@
-open Httpaf
+open Dream_httpaf
 open Method
 
 let test_is_safe () =

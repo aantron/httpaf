@@ -87,7 +87,7 @@ let create_request_body ~request t =
       ~encoding
       ~when_ready_to_write:(Optional_thunk.some (fun () -> wakeup_writer t))
   | `Error `Bad_request ->
-    failwith "Httpaf.Client_connection.request: invalid body length"
+    failwith "Dream_httpaf.Client_connection.request: invalid body length"
 
 let request t request ~error_handler ~response_handler =
   let request_body = create_request_body ~request t in

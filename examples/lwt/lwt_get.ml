@@ -2,7 +2,7 @@ open Base
 open Lwt.Infix
 module Arg = Caml.Arg
 
-open Httpaf
+open Dream_httpaf
 open Httpaf_lwt_unix
 
 let main port host =

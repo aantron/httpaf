@@ -1,7 +1,7 @@
 open! Core
 open Async
 
-open Httpaf
+open Dream_httpaf
 open Httpaf_async
 
 let error_handler _ = assert false

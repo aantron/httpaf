@@ -35,7 +35,7 @@
 module Server (Flow : Mirage_flow.S) = struct
   type socket = Flow.flow
 
-  module Server_runtime = Httpaf_lwt.Server (Gluten_mirage.Server (Flow))
+  module Server_runtime = Dream_httpaf_lwt.Server (Gluten_mirage.Server (Flow))
 
   let create_connection_handler ?config ~request_handler ~error_handler =
     fun flow ->
@@ -44,19 +44,19 @@ module Server (Flow : Mirage_flow.S) = struct
       Server_runtime.create_connection_handler ?config ~request_handler ~error_handler () flow
 end
 
-(* Almost like the `Httpaf_lwt.Server` module type but we don't need the client
+(* Almost like the `Dream_httpaf_lwt.Server` module type but we don't need the client
  * address argument in Mirage. It's somewhere else. *)
 module type Server = sig
   type socket
 
   val create_connection_handler
-    :  ?config : Httpaf.Config.t
-    -> request_handler : (Httpaf.Reqd.t Gluten.reqd -> unit)
-    -> error_handler : Httpaf.Server_connection.error_handler
+    :  ?config : Dream_httpaf.Config.t
+    -> request_handler : (Dream_httpaf.Reqd.t Gluten.reqd -> unit)
+    -> error_handler : Dream_httpaf.Server_connection.error_handler
     -> (socket -> unit Lwt.t)
 end
 
-module type Client = Httpaf_lwt.Client
+module type Client = Dream_httpaf_lwt.Client
 
 module Client (Flow : Mirage_flow.S) =
-  Httpaf_lwt.Client (Gluten_mirage.Client (Flow))
+  Dream_httpaf_lwt.Client (Gluten_mirage.Client (Flow))

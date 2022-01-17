@@ -36,18 +36,18 @@ open Async
 
 module Server = struct
   let create_connection_handler
-    ?(config=Httpaf.Config.default)
+    ?(config=Dream_httpaf.Config.default)
     ~request_handler
     ~error_handler =
     fun client_addr socket ->
       let create_connection =
-        Httpaf.Server_connection.create
+        Dream_httpaf.Server_connection.create
           ~config
           ~error_handler:(error_handler client_addr)
       in
       Gluten_async.Server.create_upgradable_connection_handler
         ~read_buffer_size:config.read_buffer_size
-        ~protocol:(module Httpaf.Server_connection)
+        ~protocol:(module Dream_httpaf.Server_connection)
         ~create_protocol:create_connection
         ~request_handler
         client_addr
@@ -55,18 +55,18 @@ module Server = struct
 
   module SSL = struct
     let create_connection_handler
-      ?(config=Httpaf.Config.default)
+      ?(config=Dream_httpaf.Config.default)
       ~request_handler
       ~error_handler =
       fun client_addr socket ->
         let create_connection =
-          Httpaf.Server_connection.create
+          Dream_httpaf.Server_connection.create
             ~config
             ~error_handler:(error_handler client_addr)
         in
         Gluten_async.Server.SSL.create_upgradable_connection_handler
           ~read_buffer_size:config.read_buffer_size
-          ~protocol:(module Httpaf.Server_connection)
+          ~protocol:(module Dream_httpaf.Server_connection)
           ~create_protocol:create_connection
           ~request_handler
           client_addr
@@ -104,21 +104,21 @@ module Client = struct
   type runtime = Client_runtime.t
 
   type t =
-    { connection: Httpaf.Client_connection.t
+    { connection: Dream_httpaf.Client_connection.t
     ; runtime: runtime
     }
 
-  let create_connection ?(config=Httpaf.Config.default) socket =
-    let connection = Httpaf.Client_connection.create ~config in
+  let create_connection ?(config=Dream_httpaf.Config.default) socket =
+    let connection = Dream_httpaf.Client_connection.create ~config in
     Client_runtime.create
       ~read_buffer_size:config.read_buffer_size
-      ~protocol:(module Httpaf.Client_connection)
+      ~protocol:(module Dream_httpaf.Client_connection)
       connection
       socket
     >>| fun runtime ->
       { runtime; connection }
 
-  let request t = Httpaf.Client_connection.request t.connection
+  let request t = Dream_httpaf.Client_connection.request t.connection
 
   let shutdown t = Client_runtime.shutdown t.runtime
 
@@ -133,21 +133,21 @@ module Client = struct
     type runtime = Client_runtime.t
 
     type t =
-      { connection: Httpaf.Client_connection.t
+      { connection: Dream_httpaf.Client_connection.t
       ; runtime: runtime
       }
 
-    let create_connection ?(config=Httpaf.Config.default) socket =
-      let connection = Httpaf.Client_connection.create ~config in
+    let create_connection ?(config=Dream_httpaf.Config.default) socket =
+      let connection = Dream_httpaf.Client_connection.create ~config in
       Client_runtime.create
         ~read_buffer_size:config.read_buffer_size
-        ~protocol:(module Httpaf.Client_connection)
+        ~protocol:(module Dream_httpaf.Client_connection)
         connection
         socket
       >>| fun runtime ->
         { runtime; connection }
 
-    let request t = Httpaf.Client_connection.request t.connection
+    let request t = Dream_httpaf.Client_connection.request t.connection
 
     let shutdown t = Client_runtime.shutdown t.runtime
 

@@ -1,5 +1,5 @@
 (library
- (name httpaf_mirage)
+ (name dream_httpaf_mirage)
  (public_name dream-httpaf-mirage)
  (libraries faraday-lwt dream-httpaf dream-httpaf-lwt dream-gluten-mirage lwt mirage-flow
    conduit-mirage cstruct)

@@ -1,5 +1,5 @@
 (library
- (name httpaf_lwt)
+ (name dream_httpaf_lwt)
  (public_name dream-httpaf-lwt)
  (libraries dream-httpaf lwt dream-gluten dream-gluten-lwt)
  (flags

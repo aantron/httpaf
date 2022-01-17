@@ -1,4 +1,4 @@
-open Httpaf
+open Dream_httpaf
 open IOVec
 
 (* The length of the buffer is ignored by iovec operations *)

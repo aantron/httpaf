@@ -1,4 +1,4 @@
-open Httpaf
+open Dream_httpaf
 module Array = ArrayLabels
 module List = ListLabels
 

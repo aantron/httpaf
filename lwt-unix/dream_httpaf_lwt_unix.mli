@@ -1,5 +1,6 @@
 (*----------------------------------------------------------------------------
     Copyright (c) 2018 Inhabited Type LLC.
+    Copyright (c) 2018 Anton Bachin
     Copyright (c) 2019 António Nuno Monteiro
 
     All rights reserved.
@@ -32,43 +33,74 @@
     POSSIBILITY OF SUCH DAMAGE.
   ----------------------------------------------------------------------------*)
 
-open Async
+open Dream_httpaf
 
-open Httpaf
-
+(* The function that results from [create_connection_handler] should be passed
+   to [Lwt_io.establish_server_with_client_socket]. For an example, see
+   [examples/lwt_echo_server.ml]. *)
 module Server : sig
-  include Httpaf_async_intf.Server
-    with type socket := ([`Active], Socket.Address.Inet.t) Socket.t
-    and type addr := Socket.Address.Inet.t
+  include Dream_httpaf_lwt.Server
+    with type socket = Lwt_unix.file_descr
+     and type addr := Unix.sockaddr
 
-  module SSL : sig
-    include Httpaf_async_intf.Server
-      with type socket := Gluten_async.Server.SSL.socket
-      and type addr := Socket.Address.Inet.t
+  module TLS : sig
+    include Dream_httpaf_lwt.Server
+      with type socket = Gluten_lwt_unix.Server.TLS.socket
+       and type addr := Unix.sockaddr
 
     val create_connection_handler_with_default
       :  certfile       : string
       -> keyfile        : string
       -> ?config         : Config.t
-      -> request_handler : ('a -> Httpaf.Reqd.t Gluten.Server.request_handler)
-      -> error_handler   : ('a -> Server_connection.error_handler)
-      -> (Socket.Address.Inet.t as 'a)
-      -> ([`Active], 'a) Socket.t
-      -> unit Deferred.t
+      -> request_handler : (Unix.sockaddr -> Dream_httpaf.Reqd.t Gluten.reqd -> unit)
+      -> error_handler   : (Unix.sockaddr -> Server_connection.error_handler)
+      -> Unix.sockaddr
+      -> Lwt_unix.file_descr
+      -> unit Lwt.t
+  end
+
+  module SSL : sig
+    include Dream_httpaf_lwt.Server
+      with type socket = Gluten_lwt_unix.Server.SSL.socket
+       and type addr := Unix.sockaddr
+
+    val create_connection_handler_with_default
+      :  certfile       : string
+      -> keyfile        : string
+      -> ?config         : Config.t
+      -> request_handler : (Unix.sockaddr -> Dream_httpaf.Reqd.t Gluten.reqd -> unit)
+      -> error_handler   : (Unix.sockaddr -> Server_connection.error_handler)
+      -> Unix.sockaddr
+      -> Lwt_unix.file_descr
+      -> unit Lwt.t
   end
 end
 
+(* For an example, see [examples/lwt_get.ml]. *)
 module Client : sig
-  include Httpaf_async_intf.Client
-    with type socket = ([`Active], Socket.Address.Inet.t) Socket.t
+  include Dream_httpaf_lwt.Client
+    with type socket = Lwt_unix.file_descr
+     and type runtime = Gluten_lwt_unix.Client.t
 
-  module SSL : sig
-    include Httpaf_async_intf.Client
-      with type socket = Gluten_async.Client.SSL.socket
+  module TLS : sig
+    include Dream_httpaf_lwt.Client
+      with type socket = Gluten_lwt_unix.Client.TLS.socket
+       and type runtime = Gluten_lwt_unix.Client.TLS.t
 
     val create_connection_with_default
       :  ?config : Config.t
-      -> ([`Active], [< Socket.Address.Inet.t]) Socket.t
-      -> t Deferred.t
+      -> Lwt_unix.file_descr
+      -> t Lwt.t
+  end
+
+  module SSL : sig
+    include Dream_httpaf_lwt.Client
+      with type socket = Gluten_lwt_unix.Client.SSL.socket
+       and type runtime = Gluten_lwt_unix.Client.SSL.t
+
+    val create_connection_with_default
+      :  ?config : Config.t
+      -> Lwt_unix.file_descr
+      -> t Lwt.t
   end
 end

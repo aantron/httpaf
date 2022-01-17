@@ -1,5 +1,5 @@
 (library
- (name httpaf_lwt_unix)
+ (name dream_httpaf_lwt_unix)
  (public_name dream-httpaf-lwt-unix)
  (libraries faraday-lwt-unix dream-httpaf dream-httpaf-lwt dream-gluten-lwt-unix lwt.unix)
  (flags

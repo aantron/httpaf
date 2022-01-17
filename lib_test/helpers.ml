@@ -1,4 +1,4 @@
-open Httpaf
+open Dream_httpaf
 
 let maybe_serialize_body f body =
   match body with

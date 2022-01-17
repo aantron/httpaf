@@ -1,5 +1,5 @@
 open Lwt.Infix
-open Httpaf
+open Dream_httpaf
 
 module type HTTP = Httpaf_mirage.Server
 

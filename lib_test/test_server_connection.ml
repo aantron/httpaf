@@ -1,4 +1,4 @@
-open Httpaf
+open Dream_httpaf
 open Helpers
 
 let trace fmt = Format.ksprintf (Format.printf "%s\n%!") fmt

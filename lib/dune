@@ -1,5 +1,5 @@
 (library
- (name        httpaf)
+ (name        dream_httpaf)
  (public_name dream-httpaf)
  (libraries
    angstrom faraday bigstringaf result)

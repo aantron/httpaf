@@ -1,5 +1,5 @@
 (library
- (name httpaf_async)
+ (name dream_httpaf_async)
  (public_name dream-httpaf-async)
  (libraries async core dream-httpaf dream-gluten-async)
  (flags

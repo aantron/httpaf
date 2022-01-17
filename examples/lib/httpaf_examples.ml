@@ -1,5 +1,5 @@
 open Base
-open Httpaf
+open Dream_httpaf
 module Format = Caml.Format
 
 let print_string = Stdio.(Out_channel.output_string stdout)
