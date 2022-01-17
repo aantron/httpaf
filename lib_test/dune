@@ -1,5 +1,5 @@
 (executables
- (libraries bigstringaf httpaf alcotest)
+ (libraries bigstringaf dream-httpaf alcotest)
  (modules
    helpers
    test_client_connection
@@ -15,6 +15,6 @@
 
 (alias
  (name runtest)
- (package httpaf)
+ (package dream-httpaf)
  (deps test_httpaf.exe)
  (action (run %{deps})))

@@ -1,6 +1,6 @@
 (library
  (name httpaf_async)
- (public_name httpaf-async)
- (libraries async core httpaf gluten-async)
+ (public_name dream-httpaf-async)
+ (libraries async core dream-httpaf dream-gluten-async)
  (flags
   (:standard -safe-string)))

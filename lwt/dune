@@ -1,6 +1,6 @@
 (library
  (name httpaf_lwt)
- (public_name httpaf-lwt)
- (libraries httpaf lwt gluten gluten-lwt)
+ (public_name dream-httpaf-lwt)
+ (libraries dream-httpaf lwt dream-gluten dream-gluten-lwt)
  (flags
   (:standard -safe-string)))
