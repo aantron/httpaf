@@ -33,6 +33,11 @@
     POSSIBILITY OF SUCH DAMAGE.
   ----------------------------------------------------------------------------*)
 
+module Gluten = Dream_gluten.Gluten
+module Gluten_lwt_unix = Dream_gluten_lwt_unix.Gluten_lwt_unix
+module Httpaf = Dream_httpaf_.Httpaf
+module Httpaf_lwt = Dream_httpaf__lwt.Httpaf_lwt
+
 open Lwt.Infix
 
 module Server = struct

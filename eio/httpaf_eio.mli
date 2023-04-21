@@ -33,6 +33,10 @@
     POSSIBILITY OF SUCH DAMAGE.
   ----------------------------------------------------------------------------*)
 
+module Gluten = Dream_gluten.Gluten
+module Gluten_eio = Dream_gluten_eio.Gluten_eio
+module Httpaf = Dream_httpaf_.Httpaf
+
 module Server : sig
   val create_connection_handler
     :  ?config         : Httpaf.Config.t

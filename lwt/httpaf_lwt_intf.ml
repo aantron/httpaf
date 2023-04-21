@@ -30,9 +30,13 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  *---------------------------------------------------------------------------*)
 
-open Httpaf
+module Gluten = Dream_gluten.Gluten
+
+open Dream_httpaf_.Httpaf
 
 module type Server = sig
+  module Httpaf = Dream_httpaf_.Httpaf
+
   type socket
 
   type addr
@@ -47,6 +51,8 @@ module type Server = sig
 end
 
 module type Client = sig
+  module Httpaf = Dream_httpaf_.Httpaf
+
   type socket
 
   type runtime

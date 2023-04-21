@@ -33,9 +33,14 @@
     POSSIBILITY OF SUCH DAMAGE.
   ----------------------------------------------------------------------------*)
 
+module Gluten_lwt = Dream_gluten_lwt.Gluten_lwt
+module Httpaf = Dream_httpaf_.Httpaf
+
 include Httpaf_lwt_intf
 
 module Server (Server_runtime: Gluten_lwt.Server) = struct
+  module Httpaf = Dream_httpaf_.Httpaf
+
   type socket = Server_runtime.socket
 
   let create_connection_handler
@@ -58,6 +63,8 @@ module Server (Server_runtime: Gluten_lwt.Server) = struct
 end
 
 module Client (Client_runtime: Gluten_lwt.Client) = struct
+  module Httpaf = Dream_httpaf_.Httpaf
+
   type socket = Client_runtime.socket
 
   type runtime = Client_runtime.t

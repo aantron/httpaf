@@ -33,6 +33,9 @@
     POSSIBILITY OF SUCH DAMAGE.
   ----------------------------------------------------------------------------*)
 
+module Gluten_lwt = Dream_gluten_lwt.Gluten_lwt
+module Httpaf = Dream_httpaf_.Httpaf
+
 module type Server = Httpaf_lwt_intf.Server
 
 module type Client = Httpaf_lwt_intf.Client
